@@ -44,6 +44,10 @@ body {
   background-color: #282c34;
 }
 
+.nav-link {
+  color: white;
+}
+
 .card {
   margin: 0;
   padding: 0;
@@ -72,16 +76,27 @@ body {
   height: -webkit-fill-available;
 }
 
+.characterImage {
+height: 18rem;
+}
+
 .letterButton {
-  display: inline-flex;
-  justify-content: space-between;
-  width: 100%;
-  margin: auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin:auto;
   padding: 0;
+  
+}
+
+.letterButton button {
+  border: 1px solid black;
+  width: 2.5rem;
 }
 
 img {
   cursor: pointer;
+
 }
 
 .comicCard {

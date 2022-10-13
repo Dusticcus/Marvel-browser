@@ -38,7 +38,7 @@ function App() {
                 let comicReleaseDate = result.dates[0].date;
                 comicReleaseDate = comicReleaseDate.split('T')[0];
                 return (
-                  <Card style={{ width: '18rem' }}>
+                  <Card style={{ width: '18rem' }} key={result.id}>
                     <Card.Img variant="top" src={comicCover} />
                     <Card.Body>
                       <Card.Title>{comicTitle}</Card.Title>

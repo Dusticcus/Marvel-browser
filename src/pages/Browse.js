@@ -46,23 +46,7 @@ function Browse() {
 
         console.log("EVENTS clicks");
 
-        let newArray = [];
-        axios.get(`https://gateway.marvel.com:443/v1/public/events?offset=${eventsOffset}&orderBy=name&ts=1${env.API_URL}`)
-            .then(function (response) {
-                console.log(response)
-                newArray = response.data.data.results;
-                setEventsList(newArray);
-                setEventsTotal(response.data.data.total);
-                setEventsCount(response.data.data.count);
-                setEventsOffset(eventsOffset + 20);
-
-                if (response.data.data.count < response.data.data.total) {
-                    console.log("needs pagination");
-                    setEventsCallAgain(true);
-                } else {
-                    setEventsCallAgain(false);
-                }
-            });
+ 
     }
 
     const handleLetterClickCharacter = event => {
@@ -135,6 +119,26 @@ function Browse() {
             }
         }
     }, [characterApiResponse]);
+
+    useEffect(()=>{
+        let newArray = [];
+        axios.get(`https://gateway.marvel.com:443/v1/public/events?offset=${eventsOffset}&orderBy=name&ts=1${env.API_URL}`)
+            .then(function (response) {
+                console.log(response)
+                newArray = response.data.data.results;
+                setEventsList(newArray);
+                setEventsTotal(response.data.data.total);
+                setEventsCount(response.data.data.count);
+                setEventsOffset(eventsOffset + 20);
+
+                if (response.data.data.count < response.data.data.total) {
+                    console.log("needs pagination");
+                    setEventsCallAgain(true);
+                } else {
+                    setEventsCallAgain(false);
+                }
+            });
+    },[]);
 
     useEffect(() => {
         let newArray = [];
@@ -221,11 +225,6 @@ function Browse() {
 
                                     })}
                                 </Row>
-                                <>
-                                    {comicsPagination &&
-                                        <Button onClick={handleLoadMoreComicsClick}>Load More Comics</Button>
-                                    }
-                                </>
                             </Modal.Body>
                             <Modal.Footer>
                                 <Button variant="secondary" onClick={handleClose}>
@@ -238,7 +237,7 @@ function Browse() {
             </Tab>
 
             {/* !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! */}
-            <Tab eventKey="profile" title="Events" >
+            <Tab eventKey="profile" title="Events">
                 <Container>
                     <Row>
                         {eventsList && eventsList.map((events) => {
@@ -246,22 +245,17 @@ function Browse() {
                             return (
                                 <Card style={{ width: '18rem' }} key={events.id}>
                                     <Card.Img variant="top" dat-event-id={events.id} src={eventImage} />
-                                    <Card.Body>
+                                    {/* <Card.Body>
                                         <Card.Title>{events.title}</Card.Title>
                                         <Card.Text>
-                                            {/* Release Date: {comicReleaseDate} */}
+                                     
                                         </Card.Text>
-                                    </Card.Body>
+                                    </Card.Body> */}
                                 </Card>
                             )
                         })}
                     </Row>
                 </Container>
-                <Button onClick={handleEventsClick}>Load Events</Button>
-            </Tab>
-            {/* !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! */}
-            <Tab eventKey="contact" title="Series">
-
             </Tab>
             {/* !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! */}
         </Tabs>

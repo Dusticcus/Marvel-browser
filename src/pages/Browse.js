@@ -148,17 +148,11 @@ function Browse() {
                     let mergeArray = [...eventsList, ...newArray];
                     setEventsList(mergeArray);
                     setEventsOffset(eventsOffset + 20);
-                    if (eventsCount > eventsTotal) {
+                    if (response.data.data.count < 20) {
                         setEventsCallAgain(false);
                     }
                 })
-
-
         }
-
-
-
-
     }, [eventsList]);
 
 
